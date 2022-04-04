@@ -295,6 +295,8 @@ class YoutubeDL(object):
     writedesktoplink:  Write a Linux internet shortcut file (.desktop)
     writesubtitles:    Write the video subtitles to a file
     writeautomaticsub: Write the automatically generated subtitles to a file
+    writetranslatedsub: Whether to consider the automatically translated subtitles
+                       as well
     allsubtitles:      Deprecated - Use subtitleslangs = ['all']
                        Downloads all the subtitles of the video
                        (requires writesubtitles or writeautomaticsub)
@@ -2683,7 +2685,9 @@ class YoutubeDL(object):
         if automatic_captions and self.params.get('writeautomaticsub'):
             for lang, cap_info in automatic_captions.items():
                 if lang not in available_subs:
-                    available_subs[lang] = cap_info
+                    is_translated = any('tlang=' in c.get('url') for c in cap_info)
+                    if not is_translated or self.params.get('writetranslatedsub'):
+                        available_subs[lang] = cap_info
 
         if (not self.params.get('writesubtitles') and not
                 self.params.get('writeautomaticsub') or not

@@ -687,6 +687,14 @@ def create_parser():
         action='store_false', dest='writeautomaticsub', default=False,
         help='Do not write auto-generated subtitles (default) (Alias: --no-write-automatic-subs)')
     subtitles.add_option(
+        '--write-translated-subs',
+        action='store_true', dest='writetranslatedsub', default=False,
+        help='Whether to consider automatically translated subtitle files')
+    subtitles.add_option(
+        '--no-write-translated-subs',
+        action='store_false', dest='writeautomaticsub', default=False,
+        help='Do not consider automatically translated subtitle files (default)')
+    subtitles.add_option(
         '--all-subs',
         action='store_true', dest='allsubtitles', default=False,
         help=optparse.SUPPRESS_HELP)
